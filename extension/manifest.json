@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "ContextBridge",
+  "version": "1.0",
+  "description": "Capture AI chat conversations and compress them into reusable context snippets.",
+  "permissions": ["activeTab", "scripting", "clipboardWrite"],
+  "host_permissions": [
+    "http://localhost:3000/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://claude.ai/*",
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*",
+        "https://cursor.com/*"
+      ],
+      "js": ["content.js"]
+    }
+  ]
+}

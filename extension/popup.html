@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ContextBridge</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0f11;
+      --surface: #1a1a1f;
+      --surface2: #222228;
+      --border: #2a2a33;
+      --accent: #6366f1;
+      --accent-glow: rgba(99, 102, 241, 0.25);
+      --text: #e4e4e7;
+      --muted: #71717a;
+      --success: #10b981;
+      --error: #f87171;
+    }
+
+    body {
+      width: 380px;
+      min-height: 480px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ── */
+    header {
+      padding: 16px 18px 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo {
+      width: 28px; height: 28px;
+      background: linear-gradient(135deg, var(--accent), #818cf8);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+    .logo svg { width: 16px; height: 16px; color: white; }
+
+    header h1 { font-size: 15px; font-weight: 600; color: white; letter-spacing: -0.3px; }
+    header span { font-size: 11px; color: var(--muted); margin-left: auto; }
+
+    /* ── Status Bar ── */
+    #status-bar {
+      margin: 12px 16px 0;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 36px;
+    }
+
+    #status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--muted);
+      flex-shrink: 0;
+      transition: background 0.3s;
+    }
+    #status-dot.active { background: var(--success); }
+    #status-dot.error  { background: var(--error); }
+
+    /* ── Preview ── */
+    .section-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      margin: 14px 16px 6px;
+    }
+
+    #preview-box, #output-box {
+      margin: 0 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 12px;
+      color: var(--muted);
+      min-height: 56px;
+      max-height: 100px;
+      overflow-y: auto;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+      transition: border-color 0.2s;
+    }
+    #output-box {
+      max-height: 130px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .char-count {
+      text-align: right;
+      font-size: 10px;
+      color: var(--muted);
+      margin: 4px 16px 0;
+    }
+
+    /* ── Buttons ── */
+    .btn-row {
+      margin: 14px 16px 0;
+      display: flex;
+      gap: 8px;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    #compress-btn {
+      flex: 1;
+      padding: 10px 16px;
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 0 16px var(--accent-glow);
+    }
+    #compress-btn:hover:not(:disabled) {
+      background: #4f52e8;
+      box-shadow: 0 0 24px var(--accent-glow);
+      transform: translateY(-1px);
+    }
+    #compress-btn:disabled {
+      background: var(--surface2);
+      color: var(--muted);
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    #copy-btn {
+      padding: 10px 14px;
+      background: var(--surface2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    #copy-btn:hover:not(:disabled) { background: var(--surface); border-color: var(--accent); }
+    #copy-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    #copy-btn.copied { background: rgba(16,185,129,0.15); border-color: var(--success); color: var(--success); }
+
+    /* ── Spinner ── */
+    .spinner {
+      width: 14px; height: 14px;
+      border: 2px solid rgba(255,255,255,0.2);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Token badge ── */
+    #token-badge {
+      display: none;
+      margin: 4px 16px 0;
+      font-size: 10px;
+      color: #818cf8;
+      background: rgba(99,102,241,0.1);
+      border: 1px solid rgba(99,102,241,0.2);
+      border-radius: 999px;
+      padding: 2px 8px;
+      width: fit-content;
+    }
+
+    /* ── Error ── */
+    #error-msg {
+      display: none;
+      margin: 8px 16px 0;
+      background: rgba(248,113,113,0.1);
+      border: 1px solid rgba(248,113,113,0.2);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: var(--error);
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 12px 16px;
+      border-top: 1px solid var(--border);
+      font-size: 10px;
+      color: var(--muted);
+      text-align: center;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+      </svg>
+    </div>
+    <h1>ContextBridge</h1>
+    <span id="page-host">—</span>
+  </header>
+
+  <div id="status-bar">
+    <div id="status-dot"></div>
+    <span id="status-text">Scanning page...</span>
+  </div>
+
+  <p class="section-label">Scraped Preview</p>
+  <div id="preview-box">—</div>
+  <div class="char-count"><span id="char-count">0</span> chars scraped</div>
+
+  <div id="error-msg"></div>
+
+  <div class="btn-row">
+    <button id="compress-btn" disabled>
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+      </svg>
+      Compress
+    </button>
+    <button id="copy-btn" disabled title="Copy to clipboard">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3"/>
+      </svg>
+    </button>
+  </div>
+
+  <p class="section-label" id="output-label" style="display:none">Compressed Output</p>
+  <div id="output-box" style="display:none"></div>
+  <div id="token-badge"></div>
+
+  <footer>Powered by <a href="http://localhost:3000" target="_blank">ContextBridge</a> &amp; Gemini</footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>

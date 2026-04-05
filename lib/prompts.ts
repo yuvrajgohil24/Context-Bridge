@@ -14,4 +14,6 @@ Rules:
 - Be ruthlessly concise
 - No filler words
 - If something is not present in the conversation, skip that section
+- Prioritize the most recent decisions over earlier ones
+- If a topic was revisited, only include the final conclusion
 `;

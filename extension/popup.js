@@ -6,6 +6,8 @@ const statusDot    = document.getElementById('status-dot');
 const statusText   = document.getElementById('status-text');
 const pageHost     = document.getElementById('page-host');
 const previewBox   = document.getElementById('preview-box');
+const scrapedTurns = document.getElementById('scraped-turns');
+const scrapedTokens = document.getElementById('scraped-tokens');
 const charCount    = document.getElementById('char-count');
 const compressBtn  = document.getElementById('compress-btn');
 const copyBtn      = document.getElementById('copy-btn');
@@ -52,22 +54,18 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     pageHost.textContent = '—';
   }
 
-  // Check if this is a supported site
-  const supportedHosts = ['claude.ai', 'chatgpt.com', 'chat.openai.com', 'cursor.com'];
-  const isSupportedSite = supportedHosts.some(h => tab.url && tab.url.includes(h));
-
-  if (!isSupportedSite) {
-    setStatus('error', 'Not a supported AI chat page');
-    previewBox.textContent = 'Open Claude, ChatGPT, or Cursor to scrape.';
-    return;
-  }
-
   setStatus('', 'Scraping conversation...');
 
   chrome.tabs.sendMessage(tab.id, { action: 'scrape' }, (response) => {
     if (chrome.runtime.lastError) {
       setStatus('error', 'Cannot reach page');
       showError('Could not inject into page. Try reloading the chat page.');
+      return;
+    }
+
+    if (response && response.error === 'unsupported_platform') {
+      setStatus('error', 'Unsupported Page');
+      previewBox.textContent = 'Open Claude, ChatGPT, or Cursor to scrape.';
       return;
     }
 
@@ -80,7 +78,20 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     scrapedText = response.text;
     setStatus('active', 'Conversation scraped ✓');
     previewBox.textContent = scrapedText.slice(0, 200) + (scrapedText.length > 200 ? '…' : '');
+    
+    // Use metadata from content script
     charCount.textContent = scrapedText.length.toLocaleString();
+    
+    if (response.turnCount) {
+      scrapedTurns.textContent = `${response.turnCount} turns`;
+      scrapedTurns.style.display = 'block';
+    }
+    
+    if (response.tokenEstimate) {
+      scrapedTokens.textContent = `~${response.tokenEstimate} tokens`;
+      scrapedTokens.style.display = 'block';
+    }
+
     compressBtn.disabled = false;
     hideError();
   });

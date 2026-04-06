@@ -1,0 +1,42 @@
+<svg width="128" height="128" viewBox="180 40 320 320" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="circleClip">
+      <circle cx="340" cy="200" r="160"/>
+    </clipPath>
+  </defs>
+
+  <!-- Main circle background -->
+  <circle cx="340" cy="200" r="160" fill="#1a1a2e" style="fill:rgb(26, 26, 46);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Bridge structure - horizontal beam -->
+  <rect x="190" y="195" width="300" height="12" rx="6" fill="#4f8ef7" style="fill:rgb(79, 142, 247);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Bridge towers -->
+  <rect x="255" y="130" width="14" height="80" rx="4" fill="#4f8ef7" style="fill:rgb(79, 142, 247);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <rect x="411" y="130" width="14" height="80" rx="4" fill="#4f8ef7" style="fill:rgb(79, 142, 247);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Bridge cables left tower -->
+  <line x1="262" y1="135" x2="220" y2="198" stroke="#7ab3ff" stroke-width="2" opacity="0.7" style="fill:rgb(0, 0, 0);stroke:rgb(122, 179, 255);color:rgb(255, 255, 255);stroke-width:2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.7;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <line x1="262" y1="135" x2="262" y2="198" stroke="#7ab3ff" stroke-width="2" opacity="0.7" style="fill:rgb(0, 0, 0);stroke:rgb(122, 179, 255);color:rgb(255, 255, 255);stroke-width:2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.7;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <line x1="262" y1="135" x2="310" y2="198" stroke="#7ab3ff" stroke-width="2" opacity="0.7" style="fill:rgb(0, 0, 0);stroke:rgb(122, 179, 255);color:rgb(255, 255, 255);stroke-width:2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.7;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Bridge cables right tower -->
+  <line x1="418" y1="135" x2="460" y2="198" stroke="#7ab3ff" stroke-width="2" opacity="0.7" style="fill:rgb(0, 0, 0);stroke:rgb(122, 179, 255);color:rgb(255, 255, 255);stroke-width:2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.7;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <line x1="418" y1="135" x2="418" y2="198" stroke="#7ab3ff" stroke-width="2" opacity="0.7" style="fill:rgb(0, 0, 0);stroke:rgb(122, 179, 255);color:rgb(255, 255, 255);stroke-width:2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.7;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <line x1="418" y1="135" x2="370" y2="198" stroke="#7ab3ff" stroke-width="2" opacity="0.7" style="fill:rgb(0, 0, 0);stroke:rgb(122, 179, 255);color:rgb(255, 255, 255);stroke-width:2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.7;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Context nodes / data bubbles -->
+  <circle cx="340" cy="165" r="18" fill="#ff4757" opacity="0.95" style="fill:rgb(255, 71, 87);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.95;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Camera/capture icon in red dot -->
+  <rect x="333" y="160" width="14" height="10" rx="2" fill="white" opacity="0.9" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.9;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <circle cx="340" cy="165" r="3.5" fill="#ff4757" style="fill:rgb(255, 71, 87);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Flowing data particles -->
+  <circle cx="225" cy="200" r="5" fill="#7ab3ff" opacity="0.8" style="fill:rgb(122, 179, 255);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.8;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <circle cx="260" cy="200" r="4" fill="#4f8ef7" opacity="0.9" style="fill:rgb(79, 142, 247);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.9;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <circle cx="295" cy="200" r="5" fill="#7ab3ff" opacity="0.8" style="fill:rgb(122, 179, 255);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.8;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Center capsule -->
+  <rect x="320" y="192" width="40" height="18" rx="9" fill="#4f8ef7" style="fill:rgb(79, 142, 247);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="340" y="205" text-anchor="middle" font-family="Arial" font-size="9" font-weight="700" fill="white" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Arial;font-size:9px;font-weight:700;text-anchor:middle;dominant-baseline:auto">CB</text>
+</svg>

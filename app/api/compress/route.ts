@@ -14,8 +14,9 @@ export async function POST(req: Request) {
        return Response.json({ error: "No conversation provided" }, { status: 400 });
     }
 
-    // Using gemini-1.5-flash for reliability and speed
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    // Using gemini-2.0-flash for reliability and speed
+    const modelName = process.env.GEMINI_MODEL || "gemini-2.0-flash";
+    const model = genAI.getGenerativeModel({ model: modelName });
 
     const prompt = `${COMPRESSION_SYSTEM_PROMPT}\n\nConversation:\n${conversation}`;
     const result = await model.generateContent(prompt);

@@ -1,4 +1,5 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+// Dev utility: lists Gemini models available to the configured API key.
+// Run with: npx tsx check-models.ts (requires GEMINI_API_KEY in the environment)
 
 const apiKey = process.env.GEMINI_API_KEY;
 
@@ -7,23 +8,26 @@ if (!apiKey) {
   process.exit(1);
 }
 
-const genAI = new GoogleGenerativeAI(apiKey);
+interface ModelInfo {
+  name: string;
+  supportedGenerationMethods?: string[];
+}
 
 async function checkModels() {
   try {
-    const aiPlatform = genAI; 
-    
-    // Using fetch directly since getGenerativeModel doesn't list models on its own
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
-    const data = await response.json();
-    
+    // Key goes in a header, not the URL, so it never lands in logs or shell history.
+    const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models", {
+      headers: { "x-goog-api-key": apiKey! },
+    });
+    const data: { models?: ModelInfo[] } = await response.json();
+
     if (data.models) {
       console.log("=== ADMISSIBLE MODELS FOR YOUR KEY ===");
-      data.models.forEach((m: any) => {
-        if (m.supportedGenerationMethods && m.supportedGenerationMethods.includes("generateContent")) {
+      for (const m of data.models) {
+        if (m.supportedGenerationMethods?.includes("generateContent")) {
           console.log(`Model: ${m.name}`);
         }
-      });
+      }
       console.log("======================================");
     } else {
       console.log("Response:", data);

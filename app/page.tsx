@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { estimateTokens } from "../lib/tokens";
 
 export default function Home() {
   const [rawConversation, setRawConversation] = useState("");
@@ -34,8 +35,8 @@ export default function Home() {
       }
 
       setCompressedResult(data.compressed);
-    } catch (err: any) {
-      setError(err.message || "An unexpected error occurred");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An unexpected error occurred");
     } finally {
       setIsLoading(false);
     }
@@ -46,12 +47,6 @@ export default function Home() {
     navigator.clipboard.writeText(compressedResult);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-  };
-
-  // Rough estimate: ~4 chars per token for English text
-  const getEstimatedTokens = (text: string) => {
-    if (!text) return 0;
-    return Math.ceil(text.length / 4);
   };
 
   return (
@@ -109,7 +104,7 @@ export default function Home() {
             <h2 className="text-sm font-medium text-zinc-300">Compressed Context</h2>
             {compressedResult && (
               <span className="text-xs text-indigo-400 font-mono bg-indigo-500/10 px-2 py-1 rounded-md">
-                ~{getEstimatedTokens(compressedResult)} tokens
+                ~{estimateTokens(compressedResult)} tokens
               </span>
             )}
           </div>

@@ -1,56 +1,86 @@
 # ContextBridge 🌉
 
-ContextBridge is a productivity-first Chrome Extension and Next.js application designed to capture, compress, and format AI chat conversations for seamless reuse. It bridges the gap between different AI models (Claude, ChatGPT, Cursor) by providing a unified way to "shuttle" context between sessions.
+ContextBridge is a Chrome Extension + Next.js app that captures AI chat conversations and compresses them into dense, reusable context blocks — so you can carry context from one AI session (or tool) into another without manual copy-pasting.
 
-## ✨ Key Features
+## ✨ Features
 
-- **Multi-Platform Scraper**: Capture structured conversations from Claude.ai, ChatGPT, and Cursor.com with a single click.
-- **AI-Powered Compression**: Uses the **Gemini 1.5 Flash** model to distill long chat logs into concise, high-density context snippets.
-- **Clean UI**: Modern, dark-themed dashboard for managing and previewing captured context.
-- **Fast Integration**: One-click copying of compressed context back to your clipboard.
-- **Zero Configuration**: Ready to use as a local development extension.
+- **One-click capture** of conversations on **claude.ai** and **chatgpt.com**, with message roles preserved.
+- **Smart truncation**: keeps as many recent turns as fit in a ~110k character budget (whole turns only), and shows you exactly how many turns were included (e.g. "42 of 87 turns").
+- **AI compression**: a Gemini model (default `gemini-2.0-flash`, configurable via `GEMINI_MODEL`) distills the conversation into a structured snippet — goal, current state, finalized decisions, open questions, tech stack — capped at 300 words.
+- **Result persistence**: the last compression for each conversation is stored locally and restored when you reopen the popup.
+- **Configurable API endpoint**: point the extension at `localhost` for development or your deployed instance (gear icon in the popup).
+- **Web playground**: paste any conversation into the Next.js app and compress it without the extension.
 
 ## 🛠️ Tech Stack
 
-- **Extension**: Vanilla JavaScript, Chrome Extension MV3 API, Tailwind-inspired CSS.
-- **Web App**: Next.js 15, TypeScript, React 19.
-- **AI Engine**: Google Generative AI (Gemini SDK).
+- **Extension**: Chrome Extension Manifest V3, vanilla JavaScript.
+- **Web app / API**: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4.
+- **AI**: Google Generative AI SDK (Gemini).
+- **Tests**: Vitest + jsdom (scraper fixtures and API route tests), GitHub Actions CI.
 
 ## 🚀 Getting Started
 
-### 1. Repository Setup
+### 1. Setup
+
 ```bash
-git clone https://github.com/yuvrajgohil24/Context-Scrapper.git
-cd context-scrapper/contextbridge
+git clone https://github.com/yuvrajgohil24/Context-Bridge.git
+cd Context-Bridge
 npm install
 ```
 
-### 2. Environment Configuration
-Create a `.env.local` file in the `contextbridge` root:
+### 2. Environment
+
+Create `.env.local` in the repository root:
+
 ```env
 GEMINI_API_KEY=your_gemini_api_key_here
+# Optional — defaults to gemini-2.0-flash
+# GEMINI_MODEL=gemini-2.0-flash
 ```
 
-### 3. Load Chrome Extension
-1. Open Chrome and navigate to `chrome://extensions/`.
-2. Enable **Developer mode** (top-right toggle).
-3. Click **Load unpacked**.
-4. Select the `extension` folder inside this repository.
+### 3. Run the web app
 
-### 4. Run Development Server
 ```bash
 npm run dev
 ```
 
+The playground is at [http://localhost:3000](http://localhost:3000) and the API at `POST /api/compress`.
+
+### 4. Load the Chrome extension
+
+1. Open `chrome://extensions/` and enable **Developer mode**.
+2. Click **Load unpacked** and select the `extension/` folder.
+3. Open a conversation on claude.ai or chatgpt.com and click the ContextBridge icon.
+
+By default the extension talks to `http://localhost:3000`. To use a deployed instance, click the gear icon in the popup, enter the URL, and grant the host permission when prompted.
+
+## 🔌 API
+
+`POST /api/compress` with `{ "conversation": "<text>" }` returns `{ "compressed": "<snippet>" }`.
+
+Limits: 120k characters per request, 10 requests/minute per client (in-memory — use a shared store like Redis if you deploy more than one instance).
+
+## 🧪 Tests
+
+```bash
+npm test        # vitest: scraper fixtures + API route
+npm run lint    # eslint
+```
+
+CI runs lint, tests, and a production build on every push and PR.
+
 ## 📂 Project Structure
 
-- `contextbridge/extension/`: The Chrome Extension source files (manifest, content scripts, popup).
-- `contextbridge/app/`: Next.js frontend and compression logic.
-- `contextbridge/lib/`: Core utilities and AI prompt templates.
+- `extension/` — Chrome extension (manifest, content script, popup).
+- `app/` — Next.js app: playground page and `app/api/compress` route handler.
+- `lib/` — compression prompt and shared utilities.
+- `tests/` — Vitest suites for the scrapers and the API route.
+
+## ⚠️ Known limitations
+
+- DOM scrapers depend on claude.ai / chatgpt.com markup; a site redesign can break them (the fixture tests pin the expected structure).
+- Token counts are estimates (~4 characters per token), not tokenizer-accurate.
 
 ## 📄 License
 
-MIT License - feel free to build upon it!
-
----
-Built with ❤️ for AI Power Users.
+MIT License — feel free to build upon it!

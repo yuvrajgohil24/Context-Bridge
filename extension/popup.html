@@ -51,6 +51,42 @@
     header h1 { font-size: 15px; font-weight: 600; color: white; letter-spacing: -0.3px; }
     header span { font-size: 11px; color: var(--muted); margin-left: auto; }
 
+    #settings-toggle {
+      background: none;
+      border: none;
+      color: var(--muted);
+      padding: 4px;
+      cursor: pointer;
+    }
+    #settings-toggle:hover { color: var(--text); }
+
+    #settings-row {
+      display: none;
+      margin: 10px 16px 0;
+      gap: 6px;
+      align-items: center;
+    }
+    #api-base-input {
+      flex: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-family: inherit;
+      font-size: 12px;
+      color: var(--text);
+      outline: none;
+    }
+    #api-base-input:focus { border-color: var(--accent); }
+    #api-base-save {
+      padding: 8px 12px;
+      background: var(--surface2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      font-size: 12px;
+    }
+    #api-base-save:hover { border-color: var(--accent); }
+
     /* ── Status Bar ── */
     #status-bar {
       margin: 12px 16px 0;
@@ -237,7 +273,18 @@
     </div>
     <h1>ContextBridge</h1>
     <span id="page-host">—</span>
+    <button id="settings-toggle" title="API endpoint settings">
+      <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+      </svg>
+    </button>
   </header>
+
+  <div id="settings-row">
+    <input id="api-base-input" type="url" placeholder="http://localhost:3000" spellcheck="false" />
+    <button id="api-base-save">Save</button>
+  </div>
 
   <div id="status-bar">
     <div id="status-dot"></div>
@@ -272,7 +319,7 @@
   <div id="output-box" style="display:none"></div>
   <div id="token-badge"></div>
 
-  <footer>Powered by <a href="http://localhost:3000" target="_blank">ContextBridge</a> &amp; Gemini</footer>
+  <footer>Powered by ContextBridge &amp; Gemini</footer>
 
   <script src="popup.js"></script>
 </body>

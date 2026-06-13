@@ -33,6 +33,8 @@ Try it now:
 
 The extension works with claude.ai and chatgpt.com; clone the repo and load `extension/` in Chrome to test locally.
 
+![ContextBridge home page](public/screenshots/contextbridge-home.png)
+
 ## 🚀 Getting Started
 
 ### 1. Setup

@@ -6,15 +6,18 @@ ContextBridge is a Chrome Extension + Next.js app that captures AI chat conversa
 
 - **One-click capture** of conversations on **claude.ai** and **chatgpt.com**, with message roles preserved.
 - **Smart truncation**: keeps as many recent turns as fit in a ~110k character budget (whole turns only), and shows you exactly how many turns were included (e.g. "42 of 87 turns").
-- **AI compression**: a Gemini model (default `gemini-2.0-flash`, configurable via `GEMINI_MODEL`) distills the conversation into a structured snippet — goal, current state, finalized decisions, open questions, tech stack — capped at 300 words.
+- **High-fidelity AI compression**: a Gemini model (default `gemini-2.0-flash`, configurable via `GEMINI_MODEL`) distills the conversation into a structured, domain-agnostic snippet — goal, key facts & entities, current state, decisions, open items & next steps, context & constraints. The prompt is engineered to preserve hard facts verbatim (amounts, dates, IDs, names, contacts) across any domain rather than truncating to a word limit.
 - **Result persistence**: the last compression for each conversation is stored locally and restored when you reopen the popup.
 - **Configurable API endpoint**: point the extension at `localhost` for development or your deployed instance (gear icon in the popup).
-- **Web playground**: paste any conversation into the Next.js app and compress it without the extension.
+- **Web app** with three pages:
+  - **Home** — landing page explaining the product and flow.
+  - **Playground** — paste any conversation and compress it, with live before/after token metrics and a reduction bar.
+  - **History** — every compression is saved locally (no account, no database); view, copy, or delete past context blocks.
 
 ## 🛠️ Tech Stack
 
 - **Extension**: Chrome Extension Manifest V3, vanilla JavaScript.
-- **Web app / API**: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4.
+- **Web app / API**: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4, Phosphor icons, Space Grotesk / Inter / JetBrains Mono.
 - **AI**: Google Generative AI SDK (Gemini).
 - **Tests**: Vitest + jsdom (scraper fixtures and API route tests), GitHub Actions CI.
 
@@ -72,8 +75,8 @@ CI runs lint, tests, and a production build on every push and PR.
 ## 📂 Project Structure
 
 - `extension/` — Chrome extension (manifest, content script, popup).
-- `app/` — Next.js app: playground page and `app/api/compress` route handler.
-- `lib/` — compression prompt and shared utilities.
+- `app/` — Next.js app: home, `playground/`, `history/` pages, shared `components/`, and the `api/compress` route handler.
+- `lib/` — compression prompt, token estimation, and client-side history store.
 - `tests/` — Vitest suites for the scrapers and the API route.
 
 ## ⚠️ Known limitations

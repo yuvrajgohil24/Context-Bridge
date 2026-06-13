@@ -1,21 +1,43 @@
 @import "tailwindcss";
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* Modern SaaS palette — cool white/slate base, dark slate primary actions,
+   confident blue accent. Exposed as Tailwind tokens: bg-canvas, text-ink,
+   border-line, bg-primary, text-accent, etc. */
+@theme {
+  --color-canvas: #ffffff;
+  --color-subtle: #f8fafc;
+  --color-surface: #ffffff;
+  --color-line: #e2e8f0;
+  --color-line-strong: #cbd5e1;
 
-:root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --color-ink: #0f172a;
+  --color-body: #475569;
+  --color-muted: #94a3b8;
+
+  --color-primary: #0f172a;
+  --color-primary-hover: #1e293b;
+
+  --color-accent: #2563eb;
+  --color-accent-hover: #1d4ed8;
+  --color-accent-soft: #eff6ff;
+
+  --color-good: #059669;
+  --color-bad: #dc2626;
+
+  --font-display: var(--font-space-grotesk);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-canvas);
+  color: var(--color-body);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
+}
+
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-accent-hover);
 }

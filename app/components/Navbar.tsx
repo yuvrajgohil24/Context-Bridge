@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowsLeftRight, GithubLogo } from "@phosphor-icons/react/dist/ssr";
+import Image from "next/image";
+import { GithubLogo } from "@phosphor-icons/react/dist/ssr";
 
 const LINKS = [
   { href: "/", label: "Home" },
@@ -17,8 +18,8 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 border-b border-line bg-canvas/85 backdrop-blur-md">
       <nav className="max-w-6xl mx-auto flex items-center justify-between px-6 h-16">
         <Link href="/" className="flex items-center gap-2.5">
-          <span className="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center">
-            <ArrowsLeftRight size={18} weight="bold" />
+          <span className="w-8 h-8 flex items-center justify-center overflow-hidden rounded-lg">
+            <Image src="/logo.svg" alt="ContextBridge" width={32} height={32} />
           </span>
           <span className="font-display text-lg font-semibold text-ink tracking-tight">
             ContextBridge

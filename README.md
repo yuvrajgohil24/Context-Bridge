@@ -22,6 +22,17 @@ ContextBridge is a Chrome Extension + Next.js app that captures AI chat conversa
 - **AI**: Google Generative AI SDK (Gemini).
 - **Tests**: Vitest + jsdom (scraper fixtures and API route tests), GitHub Actions CI.
 
+## 🌐 Live Demo
+
+**Web app**: https://context-bridge-smoky.vercel.app/
+
+Try it now:
+- **Home** — product overview and feature walkthrough.
+- **Playground** — paste any conversation and compress it live; see before/after token metrics and compression ratio.
+- **History** — all past compressions saved locally; view, copy, or delete with timestamps and metrics.
+
+The extension works with claude.ai and chatgpt.com; clone the repo and load `extension/` in Chrome to test locally.
+
 ## 🚀 Getting Started
 
 ### 1. Setup

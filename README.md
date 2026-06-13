@@ -1,5 +1,6 @@
 # ContextBridge 🌉
 
+**Live App:** [https://context-bridge-smoky.vercel.app/](https://context-bridge-smoky.vercel.app/)
 ContextBridge is a Chrome Extension + Next.js app that captures AI chat conversations and compresses them into dense, reusable context blocks — so you can carry context from one AI session (or tool) into another without manual copy-pasting.
 
 ## ✨ Features
